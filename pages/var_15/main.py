@@ -61,8 +61,8 @@ def var15():
             if selected[0] <= float(ages) <= selected[1]:
                 Passenclass3['selected'] += Passenclass3[ages]
     clas = ['Класс 1', 'Класс 2', 'Класс 3']
-    Passenger = [Passenclass1['selected'], Passenclass2['selected'], Passenclass3['selected']]
-    fig = plt.figure(figsize=(10,8))
+    Passenger: list = [Passenclass1['selected'], Passenclass2['selected'], Passenclass3['selected']]
+    fig = plt.figure(figsize=(10, 8))
     plt.bar(clas, Passenger)
     for i in range(len(clas)):
         plt.text(i, Passenger[i], Passenger[i], ha='center')
