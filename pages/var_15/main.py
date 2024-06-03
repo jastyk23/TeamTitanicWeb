@@ -10,9 +10,7 @@ def man_survived(file):
     }
     for line in file:
         data = line.split(',')
-        if data[1] == 'Survived' or data[1] == '0':
-            continue
-        if data[5] == 'female':
+        if data[1] == 'Survived' or data[1] == '0' or data[5] == 'female':
             continue
         elif data[2] == '1':
             age = data[6]
@@ -53,6 +51,7 @@ def select_ages(passengers, selected_ages):
                 selected_passengers[n_class] += passengers[n_class][age]
     return [selected_passengers['class_1'], selected_passengers['class_2'], selected_passengers['class_3']]
 
+
 def var15():
     st.header('Информация по пассажирам Титаника')
     st.write('Количество выживших мужчин по каждому классу обслуживания в заданном возростном диапазоне.')
@@ -61,10 +60,10 @@ def var15():
     clas = ['Класс 1', 'Класс 2', 'Класс 3']
     selected = st.slider("Возраст пассажиров", 0, 100, (0, 100))
     passenger = select_ages(mans_survived, selected)
-    fig = plt.figure(figsize=(10, 8))
+    fig = plt.figure(figsize=(7, 5))
     plt.bar(clas, passenger)
     for i in range(len(clas)):
-        plt.text(i, passenger[i], passenger[i], ha='center')
+        plt.text(i, passenger[i], str(passenger[i]), ha='center')
     plt.xlabel('Класс обслуживания')
     plt.ylabel('Число выживших')
     plt.title('Диаграмма - количество выживших мужчин')
