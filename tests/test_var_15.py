@@ -1,4 +1,4 @@
-from pages.var_15.main import *
+from pages.var_15.main import man_survived, select_ages
 
 
 def test_man_ages_survived_in_classes():

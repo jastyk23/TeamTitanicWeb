@@ -1,4 +1,5 @@
-from pages.var_16.main import *
+from pages.var_16.main import count_survivors
+
 
 def test_survivors_female_in_all_classes():
     test_data = [
