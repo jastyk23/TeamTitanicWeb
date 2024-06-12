@@ -44,13 +44,14 @@ def select_ages(passengers, selected_ages):
 
 
 def var15():
-    st.header('Информация по пассажирам Титаника')
-    st.write('Количество выживших мужчин по каждому классу обслуживания в заданном возростном диапазоне.')
+    st.info('Количество выживших мужчин по каждому классу обслуживания в заданном возростном диапазоне.')
     with open('src/data/data.csv') as file:
         mans_survived = man_survived(file)
     clas = ['Класс 1', 'Класс 2', 'Класс 3']
     selected = st.slider("Возраст пассажиров", 0, 100, (0, 100))
     passenger = select_ages(mans_survived, selected)
+    data = {'Класс обслуживание': ['I Класс', 'II Класс', 'III Класс'], 'Число выживших': [i for i in passenger]}
+    st.dataframe(data, use_container_width=True)
     fig = plt.figure(figsize=(7, 5))
     plt.bar(clas, passenger)
     for i in range(len(clas)):
