@@ -8,34 +8,25 @@ def man_survived(file):
         'class_2': {},
         'class_3': {},
     }
+    lib = {
+        '1': 'class_1',
+        '2': 'class_2',
+        '3': 'class_3',
+    }
     for line in file:
         data = line.split(',')
         if data[1] == 'Survived' or data[1] == '0' or data[5] == 'female':
             continue
-        elif data[2] == '1':
-            age = data[6]
-            if age == '':
+        else:
+            if data[6] == '':
                 age = '0'
-            if age not in survived_passengers['class_1']:
-                survived_passengers['class_1'][age] = 1
             else:
-                survived_passengers['class_1'][age] += 1
-        elif data[2] == '2':
-            age = data[6]
-            if age == '':
-                age = '0'
-            if age not in survived_passengers['class_2']:
-                survived_passengers['class_2'][age] = 1
+                age = data[6]
+            class_num = data[2]
+            if age not in survived_passengers[lib[class_num]]:
+                survived_passengers[lib[class_num]][age] = 1
             else:
-                survived_passengers['class_2'][age] += 1
-        elif data[2] == '3':
-            age = data[6]
-            if age == '':
-                age = '0'
-            if age not in survived_passengers['class_3']:
-                survived_passengers['class_3'][age] = 1
-            else:
-                survived_passengers['class_3'][age] += 1
+                survived_passengers[lib[class_num]][age] += 1
     return survived_passengers
 
 
@@ -53,13 +44,14 @@ def select_ages(passengers, selected_ages):
 
 
 def var15():
-    st.header('Информация по пассажирам Титаника')
-    st.write('Количество выживших мужчин по каждому классу обслуживания в заданном возростном диапазоне.')
+    st.info('Количество выживших мужчин по каждому классу обслуживания в заданном возростном диапазоне.')
     with open('src/data/data.csv') as file:
         mans_survived = man_survived(file)
     clas = ['Класс 1', 'Класс 2', 'Класс 3']
     selected = st.slider("Возраст пассажиров", 0, 100, (0, 100))
     passenger = select_ages(mans_survived, selected)
+    data = {'Класс обслуживание': ['I Класс', 'II Класс', 'III Класс'], 'Число выживших': [i for i in passenger]}
+    st.dataframe(data, use_container_width=True)
     fig = plt.figure(figsize=(7, 5))
     plt.bar(clas, passenger)
     for i in range(len(clas)):
