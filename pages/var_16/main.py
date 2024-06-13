@@ -27,23 +27,23 @@ def count_survivors(file, price):
 
 def var16() -> None:
     """
-Ключевая функция, именно она отрисовывает вашу часть.Вы можете дополнительно создавать функции под ваши нужды и
-меня данный файл как вам удобно, НО все элементы streamlit для страницы должны быть внесены в эту функцию
+    Ключевая функция, именно она отрисовывает вашу часть.Вы можете дополнительно создавать функции под ваши нужды и
+    меня данный файл как вам удобно, НО все элементы streamlit для страницы должны быть внесены в эту функцию
     :return: None
     """
-data_path = 'src/data/data.csv'
-st.info('Количество выживших женщин по каждому классу обслуживания в заданном диапазоне платы за проезд.')
-price = st.slider('Диапазон платы за проезд в $ 1000', 0, 1000, (0, 1000))
+    data_path = 'src/data/data.csv'
+    st.info('Количество выживших женщин по каждому классу обслуживания в заданном диапазоне платы за проезд.')
+    price = st.slider('Диапазон платы за проезд в $ 1000', 0, 1000, (0, 1000))
 
-classes = ['Первый класс', 'Второй класс', 'Третий класс']
-with open(data_path) as file:
-    survivors = count_survivors(file, price)
-data = {'Класс обслуживание': ['I Класс', 'II Класс', 'III Класс'], 'Число выживших': [i for i in survivors]}
-st.dataframe(data, use_container_width=True)
-fig, ax = plt.subplots()
-ax.bar(classes, survivors)
-ax.set_xlabel('Класс')
-ax.set_ylabel('Количество выживших женщин')
-ax.set_title('Количество выживших женщин по классам')
+    classes = ['Первый класс', 'Второй класс', 'Третий класс']
+    with open(data_path) as file:
+        survivors = count_survivors(file, price)
+    data = {'Класс обслуживание': ['I Класс', 'II Класс', 'III Класс'], 'Число выживших': [i for i in survivors]}
+    st.dataframe(data, use_container_width=True)
+    fig, ax = plt.subplots()
+    ax.bar(classes, survivors)
+    ax.set_xlabel('Класс')
+    ax.set_ylabel('Количество выживших женщин')
+    ax.set_title('Количество выживших женщин по классам')
 
-st.pyplot(fig)
+    st.pyplot(fig)
