@@ -8,7 +8,7 @@ def var8():
 
     class_dict = titanic.get_class()
 
-    st.header('Количество пассажиров каждого пола по указанному классу обслуживания')
+    st.info('Количество пассажиров каждого пола по указанному классу обслуживания')
 
     option = st.selectbox(
         "Выберите класс",
@@ -18,5 +18,5 @@ def var8():
 
     data = {'Пол': ['Мужчины', 'Женщины'],
             'Количество': [passengers['male'], passengers['female']]}
-
+    st.dataframe(data, use_container_width=True)
     st.bar_chart(data=data, x='Пол', y='Количество')
