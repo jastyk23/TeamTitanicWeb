@@ -25,7 +25,7 @@ def var1() -> None:
     data_path = 'src/data/data.csv'
     # Ваш код будет ниже
     # Создание сайта с изображением Титаника и диаграммой
-    st.header('Диапазон возрастов спасенных пассажиров каждого пола')
+    st.info('Диапазон возрастов спасенных пассажиров с указание пола и статус (спасен/погиб)')
 
     status = st.radio('Выберите статус пассажира:', ('Спасен', 'Погиб'))
     gender = st.radio('Выберите пол пассажира:', ('Мужчины', 'Женщины'))
@@ -39,16 +39,17 @@ def var1() -> None:
     with open(data_path, 'r') as file:
         if status == 'Спасен':
             passengers = get_ages(file, True, my_dict[gender])
-            st.write(f'Минимальный возраст спасенных {gender.lower()[:-1]}: {min(passengers)}')
-            st.write(f'Максимальный возраст спасенных {gender.lower()[:-1]}: {max(passengers)}')
-
+            data = {'': [f'Минимальный возраст спасенных {gender.lower()[:-1]}',
+                         f'Максимальный возраст спасенных {gender.lower()[:-1]}'],
+                    'Возраст': [min(passengers), max(passengers)]}
         else:
             passengers = get_ages(file, False, my_dict[gender])
-            st.write(f'Минимальный возраст погибших {gender.lower()[:-1]}: {min(passengers)}')
-            st.write(f'Максимальный возраст погибших {gender.lower()[:-1]}: {max(passengers)}')
+            data = {'': [f'Минимальный возраст погибших {gender.lower()[:-1]}',
+                         f'Максимальный возраст погибших {gender.lower()[:-1]}'],
+                    'Возраст': [min(passengers), max(passengers)]}
 
+    st.dataframe(data, use_container_width=True)
     # Создание диаграммы
-
     ax.hist(passengers, bins=10, alpha=0.5, label=gender)
     plt.xlabel('Возраст')
     plt.ylabel('Количество')
